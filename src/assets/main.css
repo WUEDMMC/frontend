@@ -1,8 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap');
 @import 'tailwindcss';
 
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.3rem;
   font-weight: normal;
+  height: 100%;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100dvh;
+  background-color: #ae7b82;
+  color: white;
+  width: 100%;
+  margin: 0;
+}
+
+h1 {
+  font-family: "Special Gothic Expanded One", "sans-serif";
+}
+
+.special-gothic-expanded-one-regular {
+  font-family: "Special Gothic Expanded One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
