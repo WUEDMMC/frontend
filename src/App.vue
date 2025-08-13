@@ -14,11 +14,11 @@
     </div>
 
     <div class="w-full flex gap-10 justify-center mt-12 special-gothic-expanded-one-regular text-xl">
-      <button v-on:click="submitAnswer('Nein')"
+      <button v-on:click="submitAnswer('Ja')"
               class="w-1/3 max-w-40 hover:bg-emerald-400 cursor-pointer py-2 border-emerald-400 border-2 rounded-lg sm:bg-transparent bg-emerald-400">
         Ja
       </button>
-      <button v-on:click="submitAnswer('Ja')"
+      <button v-on:click="submitAnswer('Nein')"
               class="w-1/3 max-w-40 hover:bg-red-400 cursor-pointer py-2 border-red-400 border-2 rounded-lg sm:bg-transparent bg-red-400">
         Nein
       </button>
@@ -37,8 +37,8 @@
     </div>
   </div>
 
-  <div v-if="submitted" class="absolute top-0 left-0 h-full w-full h-full flex flex-col items-center justify-center">
-    <img src="/hero.jpg">
+  <div v-if="submitted" class="absolute top-0 left-0 h-full w-full h-full flex flex-col items-center justify-center px-5" style="background-color: #ae7b82;">
+    <img :src="getImgSrc()">
   </div>
 
   <Loader v-if="submitting"></Loader>
@@ -55,6 +55,13 @@ import ChildComponent from './Loader.vue'
 import Loader from "@/Loader.vue";
 
 export default {
+  mounted() {
+    let answerAlreadySubmitted = localStorage.getItem("answer");
+    if(answerAlreadySubmitted) {
+      this.answer = answerAlreadySubmitted;
+      this.submitted = true;
+    }
+  },
   components: {Loader},
   data() {
     return {
@@ -77,12 +84,15 @@ export default {
       }
       this.showVideo = !this.showVideo;
     },
+    getImgSrc() {
+      return this.answer === "Ja" ? "/png-flork.png" : "/florkSad.png"
+    },
     async submitAnswer(option) {
       try {
         this.answer = option;
         this.submitting = true;
         const response = await axios.post("http://localhost:3000/decision", {answer: option},);
-        console.log(response);
+        localStorage.setItem("answer", option);
         this.submitted = true;
       } catch (error) {
         console.log(error);
