@@ -91,7 +91,7 @@ export default {
       try {
         this.answer = option;
         this.submitting = true;
-        const response = await axios.post("http://https://backend-phi-eight-34.vercel.app/decision", {answer: option},);
+        const response = await axios.post("http://https://backend-phi-eight-34.vercel.app:3000/decision", {answer: option},);
         localStorage.setItem("answer", option);
         this.submitted = true;
       } catch (error) {
